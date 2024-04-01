@@ -8,4 +8,4 @@ RUN mkdir -p /images
 
 RUN gradle bootJar
 
-CMD ["java", "-jar", "build/libs/photouploader-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-jar", "build/libs/photouploader-1.0.0.jar"]
