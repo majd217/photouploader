@@ -24,20 +24,26 @@ public class PhotoController {
 	String images_path = System.getenv().get("images_path"); 
 
 	@PostMapping("/upload")
-	public ResponseEntity<String> photoUpload(@RequestParam("image") MultipartFile image) throws ResponseStatusException
+	public ResponseEntity<String> photoUpload(@RequestParam("images") MultipartFile[] images) throws ResponseStatusException
     {
-		Path path = Paths.get(images_path, 
-			String.format(
-				"%s.%s", 
-				UUID.randomUUID().toString(), 
-				StringUtils.getFilenameExtension(image.getOriginalFilename())
-			)
-		);
 
-		try {
-			Files.write(path, image.getBytes(), StandardOpenOption.CREATE_NEW);
-		} catch (IOException e) {
-			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to write file");
+		for(MultipartFile image : images)
+		{
+			System.out.println(StringUtils.getFilenameExtension(image.getOriginalFilename()));
+			Path path = Paths.get(images_path, 
+				String.format(
+					"%s.%s", 
+					UUID.randomUUID().toString(), 
+					StringUtils.getFilenameExtension(image.getOriginalFilename())
+				)
+			);
+
+			try {
+				Files.write(path, image.getBytes(), StandardOpenOption.CREATE_NEW);
+			} catch (IOException e) {
+				throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Failed to write file");
+			}
+
 		}
 
 		return new ResponseEntity<>(HttpStatus.OK);
