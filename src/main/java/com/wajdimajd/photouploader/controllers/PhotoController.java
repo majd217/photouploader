@@ -21,10 +21,12 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/photo")
 public class PhotoController {
 
+	String images_path = System.getenv().get("images_path"); 
+
 	@PostMapping("/upload")
 	public ResponseEntity<String> photoUpload(@RequestParam("image") MultipartFile image) throws ResponseStatusException
     {
-		Path path = Paths.get("images", 
+		Path path = Paths.get(images_path, 
 			String.format(
 				"%s.%s", 
 				UUID.randomUUID().toString(), 
