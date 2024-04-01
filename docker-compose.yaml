@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  backend:
+    image: photouploader_backend
+    container_name: photouploader_backend_container
+    environment:
+      - images_path=/images
+    volumes:
+      - ./images:/images
+    build:
+      dockerfile: Dockerfile.backend
+    ports:
+      - "8080:8080"
