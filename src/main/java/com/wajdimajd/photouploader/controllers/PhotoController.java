@@ -29,7 +29,6 @@ public class PhotoController {
 
 		for(MultipartFile image : images)
 		{
-			System.out.println(StringUtils.getFilenameExtension(image.getOriginalFilename()));
 			Path path = Paths.get(images_path, 
 				String.format(
 					"%s.%s", 
